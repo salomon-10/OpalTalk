@@ -1,0 +1,172 @@
+/* Global reset */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #8e44ad, #9b59b6);
+  color: #333;
+}
+
+/* Container général */
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Colonne gauche : contacts */
+.chat .email {
+  width: 300px;
+  background-color: #ffffff;
+  border-right: 1px solid #ddd;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+  overflow-y: auto;
+}
+
+.ligne {
+  color: #21e103;
+  font-weight: bold;
+}
+
+.email h3 {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #8e44ad;
+}
+
+/* Liste des contacts */
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-list li {
+  padding: 12px 16px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-weight: 500;
+  color: #333;
+  background-color: #f9f6fd;
+}
+
+.contact-list li:hover {
+  background-color: #e6d9f5;
+}
+
+.contact-list li.active {
+  background-color: #d9b3ff;
+  font-weight: bold;
+}
+
+/* Zone des messages */
+.message-zone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* Boîte contenant les messages */
+.message_box {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-bottom: 20px;
+}
+
+.message {
+  margin: 8px 0;
+  max-width: 70%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  position: relative;
+  word-wrap: break-word;
+  font-size: 15px;
+  background-color: #f1f0f0;
+}
+
+/* Messages envoyés par soi */
+.message.me {
+  background-color: #a9f1af;
+  align-self: flex-end;
+  text-align: right;
+}
+
+/* Zone de saisie */
+.typing-area {
+  display: flex;
+  border-top: 1px solid #ddd;
+}
+
+.typing-area input[type="text"] {
+  flex: 1;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 25px;
+  background-color: #f0f2f5;
+  margin-right: 10px;
+  font-size: 15px;
+}
+
+.typing-area button {
+  padding: 10px 20px;
+  background-color: #8e44ad;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.typing-area button:hover {
+  background-color: #732d91;
+}
+
+/* Scroll customisé */
+.message_box::-webkit-scrollbar {
+  width: 8px;
+}
+.message_box::-webkit-scrollbar-thumb {
+  background-color: #d6bce9;
+  border-radius: 10px;
+}
+
+body.dark-mode {
+  background: #1e1e2f;
+  color: #eee;
+}
+
+body.dark-mode .chat .email {
+  background-color: #2e2e42;
+  color: #eee;
+}
+
+body.dark-mode .contact-list li {
+  background-color: #3c3c5c;
+  color: #eee;
+}
+body.dark-mode .contact-list li:hover {
+  background-color: #5c5c8a;
+}
+body.dark-mode .message-zone {
+  background-color: #2e2e42;
+}
+body.dark-mode .message {
+  background-color: #44475a;
+}
+body.dark-mode .message.me {
+  background-color: #7c3aed;
+}
+body.dark-mode .typing-area input[type="text"] {
+  background-color: #3b3b58;
+  color: #eee;
+}
+body.dark-mode .typing-area button {
+  background-color: #a855f7;
+}

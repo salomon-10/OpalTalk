@@ -3,7 +3,7 @@ session_start();
 require 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username']; // ou 'email' si tu te connectes avec
+    $username = $_POST['username'];
     $password = $_POST['password'];
 
     $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
@@ -21,105 +21,158 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="img/opaltalk.ico" type="opaltalk/x-icon"> 
     <title>Connexion - OpalTalk</title>
+    <link rel="icon" href="img/opaltalk.ico" type="image/x-icon">
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
-            background:#FAF7F4;
+            height: 100vh;
+            background: linear-gradient(to top, #6c4ab6, #d891ef);
+            background-image: url('img/opal.jpg'); 
+            background-size: cover;
+            background-position: center;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+            color: rgba(0,0,0,0.37);
         }
-        .container {
-            display: flex;
-            gap: 40px;
-            align-items: center;
-        }
-        .login-box {
-            background: linear-gradient(to bottom right, #a18cd1, #fbc2eb);
-            padding: 30px;
+
+        .transp {
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 20px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            padding: 40px 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+            width: 350px;
             text-align: center;
-            width: 300px;
         }
-        .login-box h2 {
-            margin-bottom: 20px;
-            color: #000;
+
+        h2 {
+            margin-bottom: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            color:  #d5aee4;
         }
-        .login-box input[type="text"],
-        .login-box input[type="password"] {
+
+        input[type="text"],
+        input[type="password"] {
             width: 100%;
-            padding: 10px;
+            padding: 12px 15px;
+            border: none;
             margin-bottom: 15px;
-            border: none;
-            border-radius: 5px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.27);
+            color: black;
         }
-        .login-box button {
+
+        input::placeholder {
+            color:rgb(0, 0, 0);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        button {
             width: 100%;
-            background: #00c853;
-            color: #fff;
-            border: none;
             padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background-color:rgb(205, 158, 224);
+            color: #fff;
             font-weight: bold;
             cursor: pointer;
-            border-radius: 5px;
+            transition: background 0.3s ease;
         }
-        .login-box button:hover {
-            background: #00b94d;
+
+        button:hover {
+            background-color: rgb(205, 158, 224);
         }
-        .top-right {
-            position: absolute;
-            top: 20px;
-            right: 30px;
+
+        .socials {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 60px;
         }
-        .top-right a {
-            background-color: #00c853;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 10px;
-            font-weight: bold;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+
+        .socials img {
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            transition: transform 0.2s;
         }
-        .top-right a:hover {
-            background-color: #00b94d;
+
+        .socials img:hover {
+            transform: scale(1.1);
         }
-        .error {
-            color: red;
-            font-size: 0.9em;
-        }
+
+        .connecte {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 14px;
+}
+
+.connecte a {
+    background:rgb(205, 158, 224);
+    padding: 10px 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s;
+}
+
+.connecte a:hover {
+    background: rgb(205, 158, 224);
+}
+
+
     </style>
 </head>
 <body>
-<div class="top-right">
-    Pas encore de compte ? <a href="inscription.php">CRÉER UN COMPTE</a>
+<div class="connecte">
+    Pas encore de compte ? <a href="inscription.php">Créer un compte</a>
 </div>
-<div class="container">
-    <img src="img/opal.jpg" alt="Login Image" style="height: 600px;">
 
-    <form class="login-box" method="POST">
-        <h2>LOGIN</h2>
-        
-        <label>Username</label>
-        <input type="text" name="username" placeholder="Nom d'utilisateur" required>
-        <label>Password</label>
-        <input type="password" name="password" placeholder="Mot de passe" required>
-        <div style="margin-bottom: 10px;">
-            <input type="checkbox" name="remember"> Remember me
-        </div>
-        <button type="submit">SE CONNECTER</button>
-    </form>
-</div>
+<form class="transp" method="POST">
+    <h2>Sign In</h2>
+
+    <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+    <input type="password" name="password" placeholder="Mot de passe" required>
+
+    <div class="checkbox-group">
+        <input type="checkbox" >
+        <label>Remember me</label>
+    </div>
+    <button type="submit">Se connecter</button>
+    <div class="socials">
+        <img src="img/Google-icon.png" alt="Google">
+        <img src="img/Facebook-icon.png" alt="Facebook">
+        <img src="img/twitter-icon.png" alt="Twitter">
+        <img src="img/Github-icon.png" alt="Github">
+    </div>
+</form>
 </body>
 </html>

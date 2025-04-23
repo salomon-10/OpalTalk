@@ -1,0 +1,182 @@
+/* Global reset */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f8f6fc;
+  color: #333;
+}
+
+/* Container général */
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+/* Colonne gauche : contacts */
+.chat .email {
+  width: 300px;
+  background-color: #ffffff;
+  border-right: 1px solid #e6d6f5;
+  padding: 20px;
+  box-shadow: 2px 0 10px rgba(128, 0, 128, 0.05);
+  overflow-y: auto;
+}
+
+.ligne {
+  color: #9b59b6;
+  font-weight: bold;
+}
+
+.email h3 {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #9b59b6;
+}
+
+/* Liste des contacts */
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-list li {
+  padding: 12px 16px;
+  margin-bottom: 5px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-weight: 500;
+  color: #333;
+  background-color: #f2e6fa;
+}
+
+.contact-list li:hover {
+  background-color: #e8d7f5;
+}
+
+.contact-list li.active {
+  background-color: #9b59b6;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Zone des messages */
+.message-zone {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* Boîte contenant les messages */
+.message_box {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 10px;
+  margin-bottom: 20px;
+}
+
+.message {
+  margin: 8px 0;
+  max-width: 70%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  position: relative;
+  word-wrap: break-word;
+  font-size: 15px;
+  background-color: #f4edfa;
+  color: #333;
+}
+
+/* Messages envoyés par soi */
+.message.me {
+  background-color: #d5bdfc;
+  align-self: flex-end;
+  text-align: right;
+  color: #000;
+}
+
+/* Zone de saisie */
+.typing-area {
+  display: flex;
+  border-top: 1px solid #e5d2f9;
+}
+
+.typing-area input[type="text"] {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #d8c4f2;
+  border-radius: 25px;
+  background-color: #fbf9fe;
+  color: #333;
+  margin-right: 10px;
+  font-size: 15px;
+}
+
+.typing-area button {
+  padding: 10px 20px;
+  background-color: #9b59b6;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.typing-area button:hover {
+  background-color: #833b9a;
+}
+
+/* Scroll customisé */
+.message_box::-webkit-scrollbar {
+  width: 8px;
+}
+.message_box::-webkit-scrollbar-thumb {
+  background-color: #d0b9f2;
+  border-radius: 10px;
+}
+
+/* Mode sombre */
+body.dark-mode {
+  background: #1e1e1e;
+  color: #eee;
+}
+
+body.dark-mode .chat .email {
+  background-color: #2c2c2c;
+  color: #eee;
+}
+body.dark-mode .contact-list li {
+  background-color: #3a3a3a;
+  color: #eee;
+}
+body.dark-mode .contact-list li:hover {
+  background-color: #4a4a4a;
+}
+body.dark-mode .message-zone {
+  background-color: #2c2c2c;
+}
+body.dark-mode .message {
+  background-color: #5a4d6d;
+}
+body.dark-mode .message.me {
+  background-color: #9b59b6;
+  color: #fff;
+}
+body.dark-mode .typing-area input[type="text"] {
+  background-color: #3b3b3b;
+  color: #eee;
+}
+body.dark-mode .typing-area button {
+  background-color: #9b59b6;
+}
+.message img {
+  display: block;
+  margin-top: 5px;
+  border-radius: 10px;
+}

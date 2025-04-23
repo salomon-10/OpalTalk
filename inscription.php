@@ -7,39 +7,33 @@
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background:#FAF7F4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 0;
             height: 100vh;
-        }
-        .container {
+            background: linear-gradient(to top, #6c4ab6, #d891ef);
+            background-image: url('img/opal.jpg'); 
+            background-size: cover;
+            background-position: center;
             display: flex;
+            justify-content: center;
             align-items: center;
-            justify-content: center;
-            width: 100%;
+            font-family: 'Segoe UI', sans-serif;
+            color: rgba(0,0,0,0.37);
         }
-        .left {
-            flex: 1;
-            display: flex;
-            justify-content: center;
+        .transp {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
+            width: 360px;
+            text-align: center;
+           height: 460px;
+           
         }
-        .left img {
-            width: 300px;
-            height: auto;
-        }
-        .right {
-            flex: 1;
-            background: linear-gradient(to bottom right, #a18cd1, #fbc2eb);
-
-            padding: 30px;
-            border-radius: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            max-width: 400px;
-        }
+     
         h2 {
             text-align: center;
+            color: #d5aee4;
         }
         input[type="text"], input[type="email"], input[type="password"], input[type="tel"] {
             width: 100%;
@@ -47,78 +41,113 @@
             margin: 10px 0;
             border: none;
             border-radius: 6px;
+            color:black;
+            background:rgba(255, 255, 255, 0.27);
         }
-        .top-link {
-            text-align: right;
-            margin-bottom: 10px;
+        input::placeholder {
+            color:rgb(0, 0, 0);
         }
-        .top-link a {
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            background-color: #00cc00;
-            padding: 10px 15px;
-            border-radius: 10px;
-        }
-        .checkbox {
-            margin-top: 10px;
-        }
+        .connecte {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 14px;
+}
+
+.connecte a {
+    background:rgb(205, 158, 224);
+    padding: 10px 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: background 0.3s;
+}
+
+.connecte a:hover {
+    background: rgb(205, 158, 224);
+}
+
         .checkbox input {
             margin-right: 5px;
         }
         .checkbox a {
-            color: purple;
+            color:rgb(205, 158, 224);
             text-decoration: underline;
         }
         button {
-            background-color: #00cc00;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 10px;
             width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 12px;
+            background-color:rgb(205, 158, 224);
+            color: #fff;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 20px;
+            transition: background 0.3s ease;
         }
+
         button:hover {
-            background-color: #00aa00;
+            background-color:rgb(205, 158, 224);
+        }
+        label {
+            color: #333;
+        }
+        .socials {
+            margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+        }
+        .socials img {
+            width: 28px;
+            height: 28px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .socials img:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="left"!>
-        <img src="img/opal.jpg" alt="Login Illustration" style="height: 500px; width:600px" >
-    </div>
-    <div class="right">
-        <div class="top-link">
+<div class="connecte">
             Déjà un compte ? <a href="login.php">Se Connecter</a>
         </div>
-        <h2>Inscription</h2>
-        <form action="intermediaire.php" method="post">
-            <label>Email</label>
-            <input type="email" name="email" placeholder="E-mail" required>
+<div class="transp">
+        <h2>Register
 
-            <label>Nom d'utilisateur</label>
+        </h2>
+        <form action="intermediaire.php" method="post">
+       
+            <input type="email" name="email" placeholder="E-mail" required>
+ 
             <input type="text" name="username" placeholder="Nom d'utilisateur" required>
 
-            <label>Mot de passe</label>
+          
             <input type="password" name="password" placeholder="Mot de passe" required>
 
-            <label>Confirmation</label>
-            <input type="password" name="confirm" placeholder="Confirmation" required>
+          
+            <input type="password" name="confirm" placeholder="Confirmation du Mot de passe " required>
 
-            <label>Téléphone</label>
-            <input type="tel" name="telephone" placeholder="+228 90 00 00 00">
+          
+            <input type="tel" name="telephone" placeholder="Teléphone" required>
 
             <div class="checkbox">
                 <input type="checkbox" required>
                 <label>J'accepte les <a href="#">Conditions</a> et la <a href="#">Politique de confidentialité</a></label>
             </div>
-
             <button type="submit">CRÉER</button>
+            <div class="socials">
+        <img src="img/Google-icon.png" alt="Google">
+        <img src="img/Facebook-icon.png" alt="Facebook">
+        <img src="img/twitter-icon.png" alt="Twitter">
+        <img src="img/Github-icon.png" alt="Github">
+    </div>
         </form>
+        
     </div>
 </div>
 </body>

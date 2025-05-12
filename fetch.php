@@ -12,6 +12,7 @@ if (!isset($_SESSION['user_id']) || !isset($_GET['receiver_id'])) {
 $my_id = $_SESSION['user_id'];
 $receiver_id = (int) $_GET['receiver_id'];
 
+// Récup de msg
 $stmt = $pdo->prepare("
     SELECT messages.*, users.username 
     FROM messages 
@@ -25,10 +26,37 @@ $stmt->execute([
     'them' => $receiver_id
 ]);
 
-while ($row = $stmt->fetch()) {
-    $me = ($row['sender_id'] == $my_id) ? 'me' : '';
-    echo "<div class='message $me'><strong>{$row['username']}:</strong> " . htmlspecialchars($row['message']) . "</div>";
+$messages = $stmt->fetchAll();
+
+// Maj "vus"
+$updateVu = $pdo->prepare("
+    UPDATE messages 
+    SET vu = 1 
+    WHERE sender_id = :them AND receiver_id = :me AND vu = 0
+");
+$updateVu->execute([
+    'them' => $receiver_id,
+    'me' => $my_id
+]);
+
+foreach ($messages as $row) {
+    $is_me = ($row['sender_id'] == $my_id);
+
+  
+    $message_text = htmlspecialchars($row['message']);
+    $username = htmlspecialchars($row['username']);
+
+    $class = $is_me ? 'me' : '';
+
+    // lecture
+    $status = '';
+    if ($is_me) {
+        $status = $row['vu'] ? '🟢' : '⚪';
+        $status = "<span class='status'>$status</span>";
+    }
+
+    echo "<div class='message $class'><strong>$username:</strong> $message_text $status</div>";
+    
 }
-
-
 ?>
+

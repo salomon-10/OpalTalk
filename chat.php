@@ -10,36 +10,40 @@ require 'config.php';
 $user_id = $_SESSION['user_id'];
 $username = $_SESSION['username'];
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>OpalTalk - Chat privé</title>
     <link rel="icon" href="img/opaltalk.ico" type="opaltalk/x-icon">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="chat.css">
 </head>
 <body>
 <div class="container">
 
   <div class="chat">
+     <h2 id="userStatus" class="user-status"><?php echo htmlspecialchars($username); ?></h2>
+       <button onclick="toggleDarkMode()" class="dark-mode-btn">dark-mode🌙</button>
+       
     <div class="email">
-      <p class="ligne">En ligne</p><br>
-      <input type="text" id="searchInput" placeholder="Rechercher un contact..." class="search-bar">
+     
+      <input type="text" id="recherche" placeholder="Rechercher un contact..." class="search-bar">
     
       <h3>Contacts</h3>
       <ul class="contact-list">
+        
         <?php
         try {
             $bdd = new PDO('mysql:host=localhost;dbname=opaltalk', 'root', '');
         } catch (Exception $e) {
             die('Erreur : ' . $e->getMessage());
         }
-
         $query = $bdd->query('SELECT id, username FROM users WHERE id != ' . $user_id);
         while ($user = $query->fetch()) {
             echo '<li onclick="openChat(' . $user['id'] . ', \'' . $user['username'] . '\')">' . htmlspecialchars($user['username']) . '</li>';
         }
+       
+
         ?>
       </ul>
     </div>
@@ -53,18 +57,20 @@ $username = $_SESSION['username'];
     </div>
 
     <form id="messageForm" class="typing-area">
-      <input type="text" id="message" name="message" placeholder="Message..." required>
+        
+      <input type="text" id="message" name="message" placeholder="Message et Emoji..." required>
       <button type="submit">Envoyer</button>
     </form>
   </div>
 </div>
-<button onclick="toggleDarkMode()" class="dark-mode-btn">🌙</button>
+
 
 <script>
 let currentReceiverId = null;
 
 function openChat(receiverId, receiverName) {
     currentReceiverId = receiverId;
+    document.getElementById('chatWith').textContent = "Chat avec " + receiverName;
     document.getElementById('messages').innerHTML = '<p>Chargement des messages avec ' + receiverName + '...</p>';
     fetchMessagesWith(receiverId);
 }
@@ -97,37 +103,46 @@ document.getElementById('messageForm').addEventListener('submit', function(e) {
         fetchMessagesWith(currentReceiverId);
     });
 });
-// barre recherche
-document.getElementById('searchInput').addEventListener('input', function() {
+
+//  recherche 
+document.getElementById('recherche').addEventListener('input', function () {
     const query = this.value.toLowerCase();
-    document.querySelectorAll('.contact-item').forEach(item => {
+    document.querySelectorAll('.contact-list li').forEach(item => {
         const name = item.textContent.toLowerCase();
         item.style.display = name.includes(query) ? 'block' : 'none';
     });
-    //mod  smbr
-    function toggleDarkMode() {
+});
+
+// dark
+function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
     localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
 }
 
+// 
 window.onload = () => {
     if (localStorage.getItem('darkMode') === 'true') {
         document.body.classList.add('dark-mode');
     }
 }
-
+// emoji
+const button = document.querySelector('#emoji-button');
+const input = document.querySelector('#message');
+const picker = new EmojiButton({
+  position: 'top-end',
+  autoHide: false,
+  showPreview: false
 });
 
-//open chat
-function openChat(receiverId, receiverName) {
-    currentReceiverId = receiverId;
-    document.getElementById('chatWith').textContent = "Chat avec " + receiverName;
+button.addEventListener('click', () => {
+  picker.togglePicker(button);
+});
 
-    document.getElementById('messages').innerHTML = '<p>Chargement des messages avec ' + receiverName + '...</p>';
-    fetchMessagesWith(receiverId);
-}
-
-
+picker.on('emoji', emoji => {
+  input.value += emoji;
+  input.focus();
+});
+</script>
 </script>
 </body>
 </html>

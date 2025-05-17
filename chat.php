@@ -23,11 +23,14 @@ $username = $_SESSION['username'];
 
   <div class="chat">
      <h2 id="userStatus" class="user-status"><?php echo htmlspecialchars($username); ?></h2>
-       <button onclick="toggleDarkMode()" class="dark-mode-btn">dark-mode🌙</button>
+       <button onclick="toggleDarkMode()" id="dark-mode-btn">dark-mode🌙</button>
        
     <div class="email">
-     
-      <input type="text" id="recherche" placeholder="Rechercher un contact..." class="search-bar">
+
+<div class="InputContainer">
+  <input placeholder="Search.." id="input" class="input" name="text" type="text">
+  
+</div>
     
       <h3>Contacts</h3>
       <ul class="contact-list">
@@ -42,15 +45,18 @@ $username = $_SESSION['username'];
         while ($user = $query->fetch()) {
             echo '<li onclick="openChat(' . $user['id'] . ', \'' . $user['username'] . '\')">' . htmlspecialchars($user['username']) . '</li>';
         }
-       
-
+    
         ?>
       </ul>
     </div>
   </div>
 
   <div class="message-zone">
+    
+  <div class="chat-header-box">
   <h2 id="chatWith" class="chat-with">Chat avec ...</h2>
+</div>
+        
 
     <div class="message_box" id="messages">
       <p>Choisissez un contact pour commencer à discuter.</p>
@@ -59,7 +65,27 @@ $username = $_SESSION['username'];
     <form id="messageForm" class="typing-area">
         
       <input type="text" id="message" name="message" placeholder="Message et Emoji..." required>
-      <button type="submit">Envoyer</button>
+     <!-- send--> 
+<button type="submit" class="send-btn">
+  <div class="svg-wrapper-1">
+    <div class="svg-wrapper">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+      >
+        <path fill="none" d="M0 0h24v24H0z"></path>
+        <path
+          fill="currentColor"
+          d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+        ></path>
+      </svg>
+    </div>
+  </div>
+  <span>Envoyer</span>
+</button>
+
     </form>
   </div>
 </div>
@@ -105,7 +131,7 @@ document.getElementById('messageForm').addEventListener('submit', function(e) {
 });
 
 //  recherche 
-document.getElementById('recherche').addEventListener('input', function () {
+document.getElementById('input').addEventListener('input', function () {
     const query = this.value.toLowerCase();
     document.querySelectorAll('.contact-list li').forEach(item => {
         const name = item.textContent.toLowerCase();
@@ -113,7 +139,7 @@ document.getElementById('recherche').addEventListener('input', function () {
     });
 });
 
-// dark
+// 
 function toggleDarkMode() {
     document.body.classList.toggle('dark-mode');
     localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
@@ -142,7 +168,7 @@ picker.on('emoji', emoji => {
   input.value += emoji;
   input.focus();
 });
-</script>
+
 </script>
 </body>
 </html>
